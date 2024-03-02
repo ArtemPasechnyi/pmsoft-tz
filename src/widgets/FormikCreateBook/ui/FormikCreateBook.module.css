@@ -1,0 +1,18 @@
+.formContainer {
+  width: 50%;
+  margin: auto;
+}
+
+.formHeader {
+  text-align: center;
+}
+
+.formInput {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.formButton {
+  margin-right: 10px;
+  margin-top: 10px;
+}

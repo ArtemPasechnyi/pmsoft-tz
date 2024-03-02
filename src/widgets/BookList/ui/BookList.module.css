@@ -1,0 +1,33 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+.listRoot {
+  margin: 0 20px 20px 20px;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.books {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 8px;
+  z-index: 1000;
+  background-color: aliceblue;
+  padding: 8px;
+  border: 2px solid #1677ff;
+  border-radius: 8px;
+}
