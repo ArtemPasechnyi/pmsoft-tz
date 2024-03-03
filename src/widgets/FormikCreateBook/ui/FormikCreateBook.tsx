@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Button, Input, Rate, Spin } from "antd";
+import { Button, Input, Spin } from "antd";
 import { Field, Formik } from "formik";
 import { useSnackbar } from "notistack";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
@@ -50,25 +50,32 @@ const FormikCreateBook = () => {
 
   const { getBookById: currentBook = null } = data;
 
+  const book: IBook = currentBook || clearBook;
+
+  const currentBookId = currentBook?.id;
+
+  const defaultValueOptions = typeOptions.filter((typeOption) =>
+    book.types.find((types: ETypeOfBook) => types === typeOption.value)
+  );
+
   let succesText: string;
   let submitText: string;
+  let title: string;
 
   switch (true) {
     case !!currentBook: {
       succesText = "Информация о книге успешно обновлена";
       submitText = "Обновить";
+      title = `Обновление книги под номером ${currentBookId}`;
       break;
     }
 
     default: {
       succesText = "Книга успешно создана";
       submitText = "Создать";
+      title = "Форма создания книги";
     }
   }
-
-  const book: IBook = currentBook || clearBook;
-
-  const currentBookId = currentBook?.id;
 
   const [createBook] = useMutation(CREATE_BOOK);
   const [updateBook] = useMutation(UPDATE_BOOK);
@@ -104,7 +111,7 @@ const FormikCreateBook = () => {
         {({ errors, touched, handleSubmit }) => (
           <div className={styles.formContainer}>
             <div className={styles.formHeader}>
-              <h4>Форма создания книги</h4>
+              <h4>{title}</h4>
             </div>
             <form onSubmit={handleSubmit}>
               <div>
@@ -127,11 +134,7 @@ const FormikCreateBook = () => {
                   className={styles.formInput}
                   placeholder="Жанр"
                   isMulti={true}
-                  defaultValue={typeOptions.filter((typeOption) =>
-                    book.types.find(
-                      (types: ETypeOfBook) => types === typeOption.value
-                    )
-                  )}
+                  defaultValue={defaultValueOptions}
                   validate={(value: string[]) => validateArr(value)}
                 />
                 {errors.types &&

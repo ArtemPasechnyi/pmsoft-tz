@@ -1,9 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
-import { Button } from "antd";
-import { Key } from "react";
-import { Link } from "react-router-dom";
+import { Key, useState } from "react";
 import { IBook } from "../../../shared/model/interfaces";
+import { AddBook } from "../features/AddBook/ui/AddBook";
 import { BookCard } from "../features/CardBook/ui/CardBook";
+import { RemoveBook } from "../features/RemoveBook/ui/RemoveBook";
 import styles from "./BookList.module.css";
 
 const GET_ALL_BOOKS = gql`
@@ -19,17 +19,11 @@ const GET_ALL_BOOKS = gql`
   }
 `;
 
-const AddBook = () => {
-  return (
-    <Link to={`/form`} className={styles.item}>
-      <Button type="primary">Добавить новую книгу</Button>
-    </Link>
-  );
-};
-
 export const BookList = () => {
   const { data = [] } = useQuery(GET_ALL_BOOKS);
   const { books = [] } = data;
+
+  const [selectedBooks, setSelectedBooks] = useState<number[]>([]);
 
   return !books.length ? (
     <div className={styles.root}>
@@ -41,11 +35,22 @@ export const BookList = () => {
     <div className={styles.listRoot}>
       <div className={styles.header}>
         <AddBook />
+        <RemoveBook
+          selectedBooks={selectedBooks}
+          setSelectedBooks={setSelectedBooks}
+        />
       </div>
 
       <div className={styles.books}>
         {books.map((book: IBook, index: Key) => {
-          return <BookCard book={book} key={index} />;
+          return (
+            <BookCard
+              book={book}
+              key={index}
+              setSelectedBooks={setSelectedBooks}
+              selectedBooks={selectedBooks}
+            />
+          );
         })}
       </div>
     </div>

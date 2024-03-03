@@ -11,7 +11,9 @@ export const client = new ApolloClient({
         const query = GET_ALL_BOOKS;
         const { books } = cache.readQuery({ query });
 
-        book.id = !books.length ? 1 : books.length + 1;
+        const maxId = Math.max(...books.map((book: any) => book.id));
+
+        book.id = !books.length ? 1 : maxId + 1;
         const data = { books: [book, ...books] };
 
         cache.writeQuery({ query, data });

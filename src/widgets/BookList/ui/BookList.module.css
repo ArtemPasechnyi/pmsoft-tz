@@ -23,6 +23,9 @@
 }
 
 .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   position: sticky;
   top: 8px;
   z-index: 1000;
