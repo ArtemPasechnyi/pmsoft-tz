@@ -11,7 +11,7 @@ const Title = ({ id }: { id: number }) => {
   return <div>{`Книга №${id}`}</div>;
 };
 
-export const BookCard = (props: IBookCardProps) => {
+export const CardBook = (props: IBookCardProps) => {
   const { book, setSelectedBooks, selectedBooks } = props;
   const { name, types, author, id, rating, year } = book;
 

@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Key, useState } from "react";
 import { IBook } from "../../../shared/model/interfaces";
 import { AddBook } from "../features/AddBook/ui/AddBook";
-import { BookCard } from "../features/CardBook/ui/CardBook";
+import { CardBook } from "../features/CardBook/ui/CardBook";
 import { RemoveBook } from "../features/RemoveBook/ui/RemoveBook";
 import styles from "./BookList.module.css";
 
@@ -44,7 +44,7 @@ export const BookList = () => {
       <div className={styles.books}>
         {books.map((book: IBook, index: Key) => {
           return (
-            <BookCard
+            <CardBook
               book={book}
               key={index}
               setSelectedBooks={setSelectedBooks}
